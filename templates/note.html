@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="UNCC Notes App">
+        <title>CS Collaboration App - View your Collaboration</title>
+        <!-- styles -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    </head>
+    <body class = "notePage">
+        <header>
+            <a href = "/index"><img src="/static/images/logo.png">
+            <nav>
+                <ul>
+                    <li><a href = "{{url_for('get_notes')}}"> My Collaborations </a></li>
+                    <li><a href = "{{url_for('new_note')}}"> Add Collaboration </a></li>
+                    <li><a href="{{url_for('profile') }}">Profile</a><li>
+                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                </ul>
+            </nav>
+           
+        </header>    
+
+        <h1>Welcome {{user}} to CS Collaborations!</h1>
+        
+        <h1>Collaboration Details</h1>
+
+        <div id="notepage">
+            <h3>Title: {{ note.title }}</h3>
+            <p>{{ note.text }}</p>
+            <p><small>Created by: {{ note.name }}</small></p>
+            <p><small>Created on: {{ note.date }}</small></p>
+        </div>
+
+        {% if note.comments %}
+            {% if note.comments|length > 0 %}
+                <h2>Comments</h2>
+                {% for comment in note.comments %}
+                <div id="comment">
+                    <p>{{user}} commented:</p>
+                    <p><small>{{comment.content}}</small></p>
+                    <form action="{{ url_for('delete_comment', note_id=note.id) }}" method = "post">
+                        <input type = "submit" value = "Delete">
+                    </form>
+                </div>
+                {% endfor %}
+                
+            {% endif %}
+        {% endif %}
+
+
+
+        <form action="{{ url_for('new_comment', note_id=note.id) }}" method="post">
+            <div class="formwrapper">
+                <h2>Add a comment</h2>
+                <div class="form-field">
+                    {{ form.comment }}
+                </div>
+                {{ form.submit }}
+            </div>
+        </form>
+    </body>
+</html>

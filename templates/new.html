@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="UNCC Notes App">
+        <title>CS Collaboration App - New Collaboration</title>
+        <!-- styles -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    </head>
+    <body>
+        <header>
+            <a href = "/index"><img src="/static/images/logo.png">
+                <nav>
+                    <ul>
+                        <li><a href = "{{url_for('get_notes')}}"> My Collaborations </a></li>
+                        {% if note %}
+                        <li><a href = "{{url_for('new_note')}}"> Add Collaboration </a></li>
+                        {% else %}
+                        <li><a href = "{{url_for('new_note')}}" class="activepage"> Add Collaboration </a></li>
+                        {% endif %}
+                        <li><a href="{{url_for('profile') }}">Profile</a><li>
+                        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                    </ul>
+                <nav>
+
+           
+        </header>
+        <h1>Create a New Collaboration</h1>
+
+        {% if note %}
+            <form  id="formstyle" action = "{{ url_for('update_note', note_id = note.id) }}" method="post">
+        {% else %}        
+            <form id="formstyle" action="new" method="post">
+        {% endif %}
+        
+            <p><label >Title </label></p><p>  
+            <p><input size="89" type="text" name="title" value = "{% if note %}{{note.title}} {% endif %}"/></p>
+            <p><label >Collaboration Details</label></p>
+            <textarea name = "noteText">{%if note%}{{note.text}}{%else%}Add some details about your new Collaboration here...{%endif%}</textarea>
+            </p>
+            <p>
+                {%if note%}
+                    <input type = "submit" value="Update Collaboration"/>
+                {%else%}
+                    <input type = "submit" value="Add Collaboration"/>
+                {%endif%}
+            </p>
+        </form>
+    
+    </body>
+</html>

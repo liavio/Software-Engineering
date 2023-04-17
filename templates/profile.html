@@ -1,0 +1,39 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="CS Collaboration App">
+        <title>CS Collaboration App</title>
+        <!-- styles -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    </head>
+    <body>
+        <header>
+            <a href = "/index"><img src="/static/images/logo.png">
+            <div class = "navigation">
+                {% if user %}
+                <nav>
+                    <ul>
+                        <li><a href = "{{url_for('get_notes')}}"> My Collaborations </a></li>
+                        <li><a href = "{{url_for('new_note')}}"> Add Collaboration </a></li>
+                        <li><a href="{{url_for('profile') }}" class="activepage">Profile</a><li>
+                        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                    </ul>
+                <nav>
+                {% else %}
+                    <nav>
+                        <ul>
+                            <li><a href="{{ url_for('login') }}">Sign in</a></li>
+                            <li><a href="{{ url_for('register') }}">Register</a></li>
+                        </ul>
+                {% endif %}
+
+                
+            </div>
+        </header>
+        <h1>Welcome {{user}} to CS Collaborations!</h1>
+        
+        <h2>Customize your profile here</h2>
+
+    </body>
+</html>

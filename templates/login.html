@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CS Collaboration App - Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='forms.css') }}">
+</head>
+    <body>
+        <header>
+            <a href = "/index"><img src="/static/images/logo.png">
+            <nav>
+                <ul>
+                  
+                    <li><a href="{{ url_for('register') }}">Register</a></li>
+                    <li><a href="{{ url_for('login') }}" class="activepage">Sign in</a></li>
+                </ul>
+            </nav>
+            {% if user %}
+            <nav>
+                <ul>
+                    <li><a href="{{url_for('profile') }}">Profile</a><li>
+                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                </ul>
+            </nav>
+            {% else %}
+            <nav>
+                <ul>
+                   
+                </ul>
+            {% endif %}
+        </header>
+        <h1>Welcome {% if user %}{{user}}{% endif %}to CS Collaborations!</h1>
+
+
+        <h2></h2>
+        <div class="formwrapper">
+            <h2 class="title">Login to Your Account</h2>
+            <form method="POST" action="/login">
+                <div class="form-field">{{ form.email.label }} {{ form.email }}
+                    {% if form.email.errors %}
+                    <ul class="errors">
+                        {% for error in form.email.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-field">{{ form.password.label }} {{ form.password }}
+                    {% if form.password.errors %}
+                    <ul class="errors">
+                        {% for error in form.password.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                {{ form.submit }}
+            </form>
+        </div>
+    </body>
+</html>

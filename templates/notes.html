@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="UNCC Notes App">
+        <title>CS Collaboration App - View your Collaborations</title>
+        <!-- styles -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    </head>
+    <body>
+        <header>
+            <a href = "/index"><img src="/static/images/logo.png">
+                <nav>
+                    <ul>
+                        <li><a href = "{{url_for('get_notes')}}" class="activepage"> My Collaborations </a></li>
+                        <li><a href = "{{url_for('new_note')}}"> Add Collaboration </a></li>
+                        <li><a href="{{url_for('profile') }}">Profile</a><li>
+                        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                    </ul>
+                <nav>
+        </header>
+        <h1>Welcome {{user}} to CS Collaborations!</h1>
+        
+        <h1>Listing Collaborations</h1>
+
+     
+
+        {% for note in notes %}
+        <div id="collabcontainer">
+            <h4><a href = "{{ url_for('get_note', note_id=note.id) }}">{{ note.title}}</a></h2>
+            
+            <p><small>Created by: {{ note.name }}</small></p>
+            <p><small>Created on: {{ note.date }}</small></p>
+            
+            <button><a href = "{{ url_for('update_note', note_id=note.id) }}">Edit</a></button>
+            
+            <form action="{{ url_for('delete_note', note_id=note.id) }}" method = "post">
+                <input type = "submit" value = "Delete">
+            </form>
+        </div>
+        {% endfor %}
+
+
+    </body>
+</html>

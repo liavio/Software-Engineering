@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="CS Collaboration App">
+        <title>CS Collaboration App</title>
+        <!-- styles -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    </head>
+    <body>
+        <header>
+            <a href = "/index"><img src="/static/images/logo.png">
+            <div class = "navigation">
+                {% if user %}
+                    <nav>
+                        <ul>
+                            <li><a href = "{{url_for('get_notes')}}"> My Collaborations </a></li>
+                            <li><a href = "{{url_for('new_note')}}"> Add Collaboration </a></li>
+                            <li><a href="{{url_for('profile') }}">Profile</a><li>
+                            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                        </ul>
+                    <nav>
+                {% else %}
+                    <nav>
+                        <ul>
+                            <li></li>
+                            <l1></l1>
+                        </ul>
+                {% endif %}
+
+                
+            </div>
+        </header>
+        <h1> </h1>
+
+        {% if user %}
+
+        <h1>Welcome {{user}} to CS Collaborations!</h1>
+
+        <h3>Collaborations</h3>
+            {% for note in notes %}
+            <h4><a href = "{{ url_for('get_note', note_id=note.id) }}">{{ note.title}}</a></h2>
+            {% endfor %}
+
+        <h3>To Do</h3>
+
+        <h3>Work notes</h3>
+
+
+        {% else %}
+
+        <div class="landing">
+        <h1>Welcome to CS Collaborations!</h1>
+        <h4>Use our site to help you organize your projects and collaborate with others!</h4>
+        <a class="landingbutton" href="{{ url_for('register') }}">Register</a>
+        <a class="landingbutton" href="{{ url_for('login') }}">Sign in</a>
+        
+
+        </div>
+
+
+        {% endif %}
+
+
+
+
+        
+
+    </body>
+</html>
